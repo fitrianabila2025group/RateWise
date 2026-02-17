@@ -1,0 +1,141 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─── Auth ───────────────────────────────────────────────────────────
+
+enum Role {
+  ADMIN
+  EDITOR
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String?
+  passwordHash  String
+  role          Role      @default(EDITOR)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  auditLogs     AuditLog[]
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  action    String   // CREATE, UPDATE, DELETE
+  entity    String   // VatRate, SalesTaxRate, etc.
+  entityId  String?
+  details   String?  @db.Text
+  createdAt DateTime @default(now())
+
+  @@index([entity, entityId])
+  @@index([userId])
+}
+
+// ─── VAT Rates ──────────────────────────────────────────────────────
+
+model VatRate {
+  id            String   @id @default(cuid())
+  countryCode   String   @unique // ISO 3166-1 alpha-2
+  countryName   String
+  standardRate  Float    // percentage e.g. 21.0
+  reducedRate   Float?
+  superReduced  Float?
+  parkingRate   Float?
+  effectiveDate DateTime @default(now())
+  notes         String?  @db.Text
+  source        String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+// ─── US Sales Tax ───────────────────────────────────────────────────
+
+model SalesTaxRate {
+  id            String   @id @default(cuid())
+  stateCode     String   @unique // e.g. "CA"
+  stateName     String
+  stateRate     Float    // percentage e.g. 7.25
+  avgLocalRate  Float?   // average local rate
+  combinedRate  Float?   // state + avg local
+  effectiveDate DateTime @default(now())
+  notes         String?  @db.Text
+  source        String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+// ─── Landing Pages / SEO Content ────────────────────────────────────
+
+model LandingPage {
+  id              String   @id @default(cuid())
+  slug            String   @unique // e.g. "vat/germany" or "sales-tax/california"
+  section         String   // "vat", "sales-tax", "salary", "finance"
+  title           String
+  metaDescription String   @db.Text
+  h1              String
+  introParagraph  String   @db.Text
+  howItWorks      String?  @db.Text
+  examples        String?  @db.Text
+  commonMistakes  String?  @db.Text
+  relatedLinks    String?  @db.Text // JSON array
+  lastUpdated     DateTime @default(now())
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  faqs            Faq[]
+}
+
+model Faq {
+  id            String      @id @default(cuid())
+  landingPageId String
+  landingPage   LandingPage @relation(fields: [landingPageId], references: [id], onDelete: Cascade)
+  question      String      @db.Text
+  answer        String      @db.Text
+  sortOrder     Int         @default(0)
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  @@index([landingPageId])
+}
+
+// ─── Blog ───────────────────────────────────────────────────────────
+
+model BlogPost {
+  id             String   @id @default(cuid())
+  slug           String   @unique
+  title          String
+  description    String   @db.Text
+  content        String   @db.Text // MDX content stored in DB
+  tags           String[] // array of tags
+  published      Boolean  @default(false)
+  featuredImage  String?
+  publishedAt    DateTime?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+// ─── Site Settings ──────────────────────────────────────────────────
+
+model SiteSetting {
+  id    String @id @default(cuid())
+  key   String @unique
+  value String @db.Text
+}
+
+// ─── Salary Tax Brackets ────────────────────────────────────────────
+
+model SalaryConfig {
+  id          String @id @default(cuid())
+  countryCode String @unique
+  countryName String
+  config      String @db.Text // JSON with tax brackets, deductions, etc.
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
