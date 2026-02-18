@@ -24,7 +24,9 @@ services:
     environment:
       # NOTE: password here MUST match POSTGRES_PASSWORD above
       DATABASE_URL: postgresql://ratewise:Anonymous263@db:5432/ratewise
-      NEXTAUTH_URL: https://ratewise.es
+      # Locally reads NEXTAUTH_URL from .env (http://localhost:3000);
+      # on Phala Cloud (no .env) defaults to https://ratewise.es
+      NEXTAUTH_URL: ${NEXTAUTH_URL:-https://ratewise.es}
       NEXTAUTH_SECRET: VeUOkA9VVajh2tSQXEey0ezXDQhj1xMLnLpgCHcR2iWU8s+p0YrGwtq9u34=
       NEXT_PUBLIC_SITE_URL: https://ratewise.es
       ADMIN_EMAIL: admin@ratewise.es
