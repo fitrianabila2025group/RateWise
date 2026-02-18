@@ -21,8 +21,8 @@ ENV NEXT_TELEMETRY_DISABLED=1
 
 RUN npm run build
 
-# Compile seed.ts to seed.cjs for production runtime (no tsx needed)
-RUN npx esbuild prisma/seed.ts --bundle --platform=node --format=cjs --outfile=prisma/seed.cjs --external:@prisma/client --external:bcryptjs
+# Compile seed.ts and migrate.ts to CJS for production runtime (no tsx/prisma CLI needed)
+RUN npx esbuild prisma/seed.ts prisma/migrate.ts --bundle --platform=node --format=cjs --outdir=prisma --out-extension:.js=.cjs --external:@prisma/client --external:bcryptjs
 
 # Production image, copy all the files and run next
 FROM base AS runner
@@ -50,14 +50,14 @@ RUN chown nextjs:nodejs .next
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
-# Copy prisma engine + seed dependencies for runtime migrations & seed
+# Copy prisma client + seed dependencies (NO prisma CLI needed – we use our own migrate.cjs)
 COPY --from=deps /app/node_modules/.prisma ./node_modules/.prisma
 COPY --from=deps /app/node_modules/@prisma ./node_modules/@prisma
-COPY --from=deps /app/node_modules/prisma ./node_modules/prisma
 COPY --from=deps /app/node_modules/bcryptjs ./node_modules/bcryptjs
 
-# Copy compiled seed script
+# Copy compiled migration + seed scripts
 COPY --from=builder /app/prisma/seed.cjs ./prisma/seed.cjs
+COPY --from=builder /app/prisma/migrate.cjs ./prisma/migrate.cjs
 COPY --from=builder /app/package.json ./package.json
 
 RUN chmod +x ./docker-entrypoint.sh

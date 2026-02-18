@@ -9,3 +9,4 @@ coverage
 .vercel
 prisma/seed.js
 prisma/seed.cjs
+prisma/migrate.cjs
