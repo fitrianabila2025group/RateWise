@@ -25,7 +25,7 @@ services:
       # NOTE: password here MUST match POSTGRES_PASSWORD above
       DATABASE_URL: postgresql://ratewise:Anonymous263@db:5432/ratewise
       NEXTAUTH_URL: https://ratewise.es
-      NEXTAUTH_SECRET: change-me-in-production-to-a-random-string
+      NEXTAUTH_SECRET: VeUOkA9VVajh2tSQXEey0ezXDQhj1xMLnLpgCHcR2iWU8s+p0YrGwtq9u34=
       NEXT_PUBLIC_SITE_URL: https://ratewise.es
       ADMIN_EMAIL: admin@ratewise.es
       ADMIN_PASSWORD: Anonymous263
@@ -34,5 +34,25 @@ services:
       db:
         condition: service_healthy
 
+  # Phala Cloud Custom Domain + Auto SSL (Cloudflare DNS + Let's Encrypt)
+  dstack-ingress:
+    image: dstacktee/dstack-ingress:20250924@sha256:40429d78060ef3066b5f93676bf3ba7c2e9ac47d4648440febfdda558aed4b32
+    restart: unless-stopped
+    ports:
+      - "443:443"
+    environment:
+      - DOMAIN=ratewise.es
+      - TARGET_ENDPOINT=http://app:3000
+      - CLOUDFLARE_API_TOKEN=4qiY8NX07V5VNbCfErdbhm01BKo9BAM3GEp13ibo
+      - GATEWAY_DOMAIN=_.${DSTACK_GATEWAY_DOMAIN}
+      - CERTBOT_EMAIL=mpratama.yt@gmail.com
+      - SET_CAA=true
+    volumes:
+      - /var/run/dstack.sock:/var/run/dstack.sock
+      - cert-data:/etc/letsencrypt
+    depends_on:
+      - app
+
 volumes:
   pgdata:
+  cert-data:
