@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import { logAudit } from '@/lib/audit';
+import { requireAdmin } from '@/lib/require-admin';
 import { z } from 'zod';
 
 const schema = z.object({
@@ -14,11 +15,17 @@ const schema = z.object({
 });
 
 export async function GET() {
+  const authError = await requireAdmin({ allowEditor: true });
+  if (authError) return authError;
+
   const posts = await prisma.blogPost.findMany({ orderBy: { createdAt: 'desc' } });
   return NextResponse.json(posts);
 }
 
 export async function POST(request: NextRequest) {
+  const authError = await requireAdmin({ allowEditor: true });
+  if (authError) return authError;
+
   try {
     const body = await request.json();
     const data = schema.parse(body);

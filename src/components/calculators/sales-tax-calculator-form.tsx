@@ -116,22 +116,22 @@ export function SalesTaxCalculatorForm({ rates, defaultState }: SalesTaxCalculat
             </div>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div className="text-center p-4 bg-background rounded-lg">
-                <p className="text-sm text-muted-foreground">Subtotal</p>
-                <p className="text-xl font-bold">${formatNumber(result.subtotal)}</p>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+              <div className="text-center p-3 sm:p-4 bg-background rounded-lg overflow-hidden">
+                <p className="text-xs sm:text-sm text-muted-foreground">Subtotal</p>
+                <p className="text-base sm:text-lg md:text-xl font-bold tabular-nums truncate">${formatNumber(result.subtotal)}</p>
               </div>
-              <div className="text-center p-4 bg-background rounded-lg">
-                <p className="text-sm text-muted-foreground">State Tax</p>
-                <p className="text-xl font-bold">${formatNumber(result.stateTax)}</p>
+              <div className="text-center p-3 sm:p-4 bg-background rounded-lg overflow-hidden">
+                <p className="text-xs sm:text-sm text-muted-foreground">State Tax</p>
+                <p className="text-base sm:text-lg md:text-xl font-bold tabular-nums truncate">${formatNumber(result.stateTax)}</p>
               </div>
-              <div className="text-center p-4 bg-background rounded-lg">
-                <p className="text-sm text-muted-foreground">Local Tax</p>
-                <p className="text-xl font-bold">${formatNumber(result.localTax)}</p>
+              <div className="text-center p-3 sm:p-4 bg-background rounded-lg overflow-hidden">
+                <p className="text-xs sm:text-sm text-muted-foreground">Local Tax</p>
+                <p className="text-base sm:text-lg md:text-xl font-bold tabular-nums truncate">${formatNumber(result.localTax)}</p>
               </div>
-              <div className="text-center p-4 bg-background rounded-lg">
-                <p className="text-sm text-muted-foreground">Total</p>
-                <p className="text-xl font-bold text-primary">${formatNumber(result.total)}</p>
+              <div className="text-center p-3 sm:p-4 bg-background rounded-lg overflow-hidden">
+                <p className="text-xs sm:text-sm text-muted-foreground">Total</p>
+                <p className="text-base sm:text-lg md:text-xl font-bold text-primary tabular-nums truncate">${formatNumber(result.total)}</p>
               </div>
             </div>
             <p className="mt-4 text-sm text-muted-foreground text-center">

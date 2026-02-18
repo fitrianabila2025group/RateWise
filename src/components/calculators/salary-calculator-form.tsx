@@ -177,22 +177,22 @@ export function SalaryCalculatorForm({ countryCode: propCountryCode, countryName
               </div>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                <div className="text-center p-4 bg-background rounded-lg">
-                  <p className="text-sm text-muted-foreground">Net Annual</p>
-                  <p className="text-xl font-bold">{currency} {formatNumber(result.netAnnual)}</p>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-6">
+                <div className="text-center p-3 sm:p-4 bg-background rounded-lg overflow-hidden">
+                  <p className="text-xs sm:text-sm text-muted-foreground">Net Annual</p>
+                  <p className="text-base sm:text-lg md:text-xl font-bold tabular-nums truncate">{currency} {formatNumber(result.netAnnual)}</p>
                 </div>
-                <div className="text-center p-4 bg-background rounded-lg">
-                  <p className="text-sm text-muted-foreground">Net {payFrequency}</p>
-                  <p className="text-xl font-bold text-primary">{currency} {formatNumber(displayPay(result))}</p>
+                <div className="text-center p-3 sm:p-4 bg-background rounded-lg overflow-hidden">
+                  <p className="text-xs sm:text-sm text-muted-foreground">Net {payFrequency}</p>
+                  <p className="text-base sm:text-lg md:text-xl font-bold text-primary tabular-nums truncate">{currency} {formatNumber(displayPay(result))}</p>
                 </div>
-                <div className="text-center p-4 bg-background rounded-lg">
-                  <p className="text-sm text-muted-foreground">Effective Rate</p>
-                  <p className="text-xl font-bold">{result.effectiveTaxRate}%</p>
+                <div className="text-center p-3 sm:p-4 bg-background rounded-lg overflow-hidden">
+                  <p className="text-xs sm:text-sm text-muted-foreground">Effective Rate</p>
+                  <p className="text-base sm:text-lg md:text-xl font-bold tabular-nums">{result.effectiveTaxRate}%</p>
                 </div>
-                <div className="text-center p-4 bg-background rounded-lg">
-                  <p className="text-sm text-muted-foreground">Marginal Rate</p>
-                  <p className="text-xl font-bold">{result.marginalRate}%</p>
+                <div className="text-center p-3 sm:p-4 bg-background rounded-lg overflow-hidden">
+                  <p className="text-xs sm:text-sm text-muted-foreground">Marginal Rate</p>
+                  <p className="text-base sm:text-lg md:text-xl font-bold tabular-nums">{result.marginalRate}%</p>
                 </div>
               </div>
 

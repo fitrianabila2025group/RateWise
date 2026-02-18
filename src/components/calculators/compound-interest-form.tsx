@@ -77,7 +77,7 @@ export function CompoundInterestForm() {
               </Select>
             </div>
           </div>
-          <Button onClick={calculate} size="lg">Calculate</Button>
+          <Button onClick={calculate} size="lg" className="w-full sm:w-auto">Calculate</Button>
         </CardContent>
       </Card>
 
@@ -91,18 +91,18 @@ export function CompoundInterestForm() {
               </div>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                <div className="text-center p-4 bg-background rounded-lg">
-                  <p className="text-sm text-muted-foreground">Final Balance</p>
-                  <p className="text-2xl font-bold text-primary">${formatNumber(result.finalBalance)}</p>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+                <div className="text-center p-3 sm:p-4 bg-background rounded-lg overflow-hidden">
+                  <p className="text-xs sm:text-sm text-muted-foreground">Final Balance</p>
+                  <p className="text-lg sm:text-xl md:text-2xl font-bold text-primary tabular-nums truncate">${formatNumber(result.finalBalance)}</p>
                 </div>
-                <div className="text-center p-4 bg-background rounded-lg">
-                  <p className="text-sm text-muted-foreground">Total Contributions</p>
-                  <p className="text-2xl font-bold">${formatNumber(result.totalContributions)}</p>
+                <div className="text-center p-3 sm:p-4 bg-background rounded-lg overflow-hidden">
+                  <p className="text-xs sm:text-sm text-muted-foreground">Total Contributions</p>
+                  <p className="text-lg sm:text-xl md:text-2xl font-bold tabular-nums truncate">${formatNumber(result.totalContributions)}</p>
                 </div>
-                <div className="text-center p-4 bg-background rounded-lg">
-                  <p className="text-sm text-muted-foreground">Total Interest Earned</p>
-                  <p className="text-2xl font-bold text-green-600">${formatNumber(result.totalInterest)}</p>
+                <div className="text-center p-3 sm:p-4 bg-background rounded-lg overflow-hidden">
+                  <p className="text-xs sm:text-sm text-muted-foreground">Total Interest Earned</p>
+                  <p className="text-lg sm:text-xl md:text-2xl font-bold text-green-600 tabular-nums truncate">${formatNumber(result.totalInterest)}</p>
                 </div>
               </div>
 

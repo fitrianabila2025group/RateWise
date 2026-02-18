@@ -39,5 +39,5 @@ export function capitalize(text: string): string {
 }
 
 export function getSiteUrl(): string {
-  return process.env.NEXT_PUBLIC_SITE_URL || 'https://ratewise.com';
+  return process.env.NEXT_PUBLIC_SITE_URL || 'https://ratewise.es';
 }

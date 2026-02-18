@@ -86,11 +86,15 @@ Edit `.env` with your values:
 
 ```env
 DATABASE_URL="postgresql://user:password@localhost:5432/ratewise"
-NEXTAUTH_URL="http://localhost:3000"
+NEXT_PUBLIC_SITE_URL="https://ratewise.es"
+NEXTAUTH_URL="https://ratewise.es"
 NEXTAUTH_SECRET="your-random-secret-here"
-ADMIN_EMAIL="admin@ratewise.com"
+ADMIN_EMAIL="admin@ratewise.es"
 ADMIN_PASSWORD="your-secure-password"
+CONTACT_EMAIL="hello@ratewise.es"
 ```
+
+> **Important:** Set `NEXT_PUBLIC_SITE_URL=https://ratewise.es` for correct canonical URLs, sitemap, and robots.txt.
 
 ### 3. Set Up Database
 
@@ -121,31 +125,59 @@ Navigate to [http://localhost:3000/admin/login](http://localhost:3000/admin/logi
 
 ## Docker Deployment
 
+### Quick Start (recommended)
+
 ```bash
-# Build and start all services
+# Build and start all services (auto-migrates & seeds the database)
 docker-compose up -d
-
-# Run database migrations
-docker-compose exec app npx prisma db push
-
-# Seed the database
-docker-compose exec app npx prisma db seed
 ```
 
-The app will be available at `http://localhost:3000`.
+The app will be available at `http://localhost:3000`. The entrypoint script automatically:
+1. Waits for PostgreSQL to be ready
+2. Runs `prisma migrate deploy` (applies pending migrations)
+3. Seeds the database (admin user, VAT rates, sales tax rates, salary configs, landing pages)
+4. Starts the Next.js server
+
+### Build & Push to DockerHub
+
+```bash
+# Build the image
+docker build -t mpratamamail/ratewise:latest .
+
+# Tag with a version
+docker build -t mpratamamail/ratewise:latest -t mpratamamail/ratewise:v1.0.1 .
+
+# Push to DockerHub
+docker push mpratamamail/ratewise:latest
+docker push mpratamamail/ratewise:v1.0.1
+```
+
+### Production Deployment
+
+For production, update environment variables in `docker-compose.yml`:
+
+```yaml
+environment:
+  DATABASE_URL: postgresql://user:password@db:5432/ratewise
+  NEXTAUTH_URL: https://ratewise.es        # Your public domain
+  NEXTAUTH_SECRET: <run: openssl rand -base64 32>
+  NEXT_PUBLIC_SITE_URL: https://ratewise.es
+  ADMIN_EMAIL: admin@ratewise.es
+  ADMIN_PASSWORD: <your-secure-password>
+```
 
 ### Environment Variables
 
 | Variable | Description | Default |
 |----------|-------------|---------|
 | `DATABASE_URL` | PostgreSQL connection string | – |
-| `NEXTAUTH_URL` | Base URL of the app | `http://localhost:3000` |
+| `NEXT_PUBLIC_SITE_URL` | Public site URL for SEO/canonical | `https://ratewise.es` |
+| `NEXTAUTH_URL` | Base URL of the app | `https://ratewise.es` |
 | `NEXTAUTH_SECRET` | Secret for JWT signing | – |
-| `ADMIN_EMAIL` | Initial admin email | `admin@ratewise.com` |
-| `ADMIN_PASSWORD` | Initial admin password | – |
-| `NEXT_PUBLIC_SITE_URL` | Public site URL for SEO | `http://localhost:3000` |
+| `ADMIN_EMAIL` | Initial admin email | `admin@ratewise.es` |
+| `ADMIN_PASSWORD` | Initial admin password | `Admin123!` |
+| `CONTACT_EMAIL` | Contact email shown on public pages | `hello@ratewise.es` |
 | `NEXT_PUBLIC_GA_ID` | Google Analytics ID | – |
-| `NEXT_PUBLIC_ADSENSE_ID` | Google AdSense publisher ID | – |
 
 ---
 
@@ -242,10 +274,32 @@ The admin panel at `/admin` provides:
 4. **Salary** – CRUD for country salary configurations (JSON)
 5. **Pages** – Edit landing page SEO content and FAQs
 6. **Blog** – Create, edit, publish/unpublish blog posts
-7. **Settings** – Site-wide settings (site name, ad IDs, etc.)
-8. **Users** – Manage admin and editor accounts
+7. **Ads** – Configure ad providers, enable/disable slots, set ad codes (ADMIN only)
+8. **Settings** – Site-wide settings (site name, etc.) (ADMIN only)
+9. **Users** – Manage admin and editor accounts (ADMIN only)
 
 All changes are logged in the audit trail.
+
+### Ads Manager (`/admin/ads`)
+
+The Ads Manager lets you configure ad placements without editing code:
+
+- **Provider**: Choose between Google AdSense or custom HTML.
+- **Slot toggles**: Enable/disable each of the 4 ad positions (top-banner, sidebar, in-content, footer).
+- **AdSense**: Enter your publisher ID (`ca-pub-xxx`) and per-slot IDs.
+- **Custom HTML**: Paste ad code per slot. Dangerous tags/event handlers are stripped automatically.
+- **Non-personalized ads**: Toggle default NPA mode for GDPR compliance.
+- **Global scripts**: Inject head/body scripts (analytics, tag managers).
+- **Preview**: See a safe preview of what each slot will render.
+
+### Security
+
+- All `/admin` pages require authentication via NextAuth JWT.
+- All `/api/admin/*` endpoints enforce server-side role checks:
+  - **ADMIN only**: Ads, Settings, Users.
+  - **ADMIN + EDITOR**: Blog, Pages, VAT Rates, Sales Tax, Salary.
+- Middleware (`src/middleware.ts`) protects both page routes and API routes.
+- Custom HTML ads are sanitized server-side using DOMPurify.
 
 ---
 

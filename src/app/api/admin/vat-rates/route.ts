@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import { logAudit } from '@/lib/audit';
+import { requireAdmin } from '@/lib/require-admin';
 import { z } from 'zod';
 
 const vatSchema = z.object({
@@ -8,21 +9,35 @@ const vatSchema = z.object({
   countryName: z.string().min(1),
   standardRate: z.number().min(0),
   reducedRate: z.number().nullable().optional(),
-  superReducedRate: z.number().nullable().optional(),
+  superReduced: z.number().nullable().optional(),
   parkingRate: z.number().nullable().optional(),
-  currency: z.string().default('EUR'),
+  effectiveDate: z.string().optional(),
+  notes: z.string().nullable().optional(),
+  source: z.string().nullable().optional(),
 });
 
 export async function GET() {
+  const authError = await requireAdmin();
+  if (authError) return authError;
+
   const rates = await prisma.vatRate.findMany({ orderBy: { countryName: 'asc' } });
   return NextResponse.json(rates);
 }
 
 export async function POST(request: NextRequest) {
+  const authError = await requireAdmin();
+  if (authError) return authError;
+
   try {
     const body = await request.json();
-    const data = vatSchema.parse(body);
-    const rate = await prisma.vatRate.create({ data });
+    const parsed = vatSchema.parse(body);
+    const { effectiveDate, ...rest } = parsed;
+    const rate = await prisma.vatRate.create({
+      data: {
+        ...rest,
+        effectiveDate: effectiveDate ? new Date(effectiveDate) : new Date(),
+      },
+    });
     await logAudit('CREATE', 'VatRate', rate.id);
     return NextResponse.json(rate, { status: 201 });
   } catch (err) {

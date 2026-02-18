@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2563eb"/>
+      <stop offset="100%" style="stop-color:#1d4ed8"/>
+    </linearGradient>
+  </defs>
+  <!-- Rounded square background -->
+  <rect width="512" height="512" rx="96" ry="96" fill="url(#bg)"/>
+  <!-- Calculator body -->
+  <rect x="120" y="80" width="272" height="352" rx="28" ry="28" fill="white" opacity="0.95"/>
+  <!-- Screen -->
+  <rect x="152" y="112" width="208" height="80" rx="12" ry="12" fill="#1e3a5f"/>
+  <!-- RW text on screen -->
+  <text x="256" y="165" text-anchor="middle" font-family="Arial,sans-serif" font-weight="bold" font-size="48" fill="#60a5fa">RW</text>
+  <!-- Calculator buttons row 1 -->
+  <rect x="152" y="216" width="44" height="36" rx="6" fill="#e2e8f0"/>
+  <rect x="208" y="216" width="44" height="36" rx="6" fill="#e2e8f0"/>
+  <rect x="264" y="216" width="44" height="36" rx="6" fill="#e2e8f0"/>
+  <rect x="320" y="216" width="40" height="36" rx="6" fill="#f59e0b"/>
+  <!-- Calculator buttons row 2 -->
+  <rect x="152" y="264" width="44" height="36" rx="6" fill="#e2e8f0"/>
+  <rect x="208" y="264" width="44" height="36" rx="6" fill="#e2e8f0"/>
+  <rect x="264" y="264" width="44" height="36" rx="6" fill="#e2e8f0"/>
+  <rect x="320" y="264" width="40" height="36" rx="6" fill="#f59e0b"/>
+  <!-- Calculator buttons row 3 -->
+  <rect x="152" y="312" width="44" height="36" rx="6" fill="#e2e8f0"/>
+  <rect x="208" y="312" width="44" height="36" rx="6" fill="#e2e8f0"/>
+  <rect x="264" y="312" width="44" height="36" rx="6" fill="#e2e8f0"/>
+  <rect x="320" y="312" width="40" height="80" rx="6" fill="#22c55e"/>
+  <!-- Calculator buttons row 4 -->
+  <rect x="152" y="360" width="100" height="36" rx="6" fill="#e2e8f0"/>
+  <rect x="264" y="360" width="44" height="36" rx="6" fill="#e2e8f0"/>
+  <!-- Button labels -->
+  <text x="174" y="241" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" fill="#475569">7</text>
+  <text x="230" y="241" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" fill="#475569">8</text>
+  <text x="286" y="241" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" fill="#475569">9</text>
+  <text x="340" y="241" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" fill="white">÷</text>
+  <text x="174" y="289" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" fill="#475569">4</text>
+  <text x="230" y="289" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" fill="#475569">5</text>
+  <text x="286" y="289" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" fill="#475569">6</text>
+  <text x="340" y="289" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" fill="white">×</text>
+  <text x="174" y="337" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" fill="#475569">1</text>
+  <text x="230" y="337" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" fill="#475569">2</text>
+  <text x="286" y="337" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" fill="#475569">3</text>
+  <text x="340" y="358" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" font-weight="bold" fill="white">=</text>
+  <text x="202" y="385" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" fill="#475569">0</text>
+  <text x="286" y="385" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" fill="#475569">.</text>
+</svg>

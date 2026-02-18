@@ -75,7 +75,7 @@ export default function PrivacyPage() {
 
           <h2>8. Contact</h2>
           <p>
-            Questions about this policy? Contact us at <a href="mailto:hello@ratewise.com">hello@ratewise.com</a>.
+            Questions about this policy? Contact us at <a href="mailto:hello@ratewise.es">hello@ratewise.es</a>.
           </p>
         </div>
       </div>

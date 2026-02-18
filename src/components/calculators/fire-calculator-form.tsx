@@ -69,7 +69,7 @@ export function FireCalculatorForm() {
               <Input id="return" type="number" value={returnRate} onChange={(e) => setReturnRate(e.target.value)} min="0" max="20" step="0.5" />
             </div>
           </div>
-          <Button onClick={calculate} size="lg">Calculate FIRE Number</Button>
+          <Button onClick={calculate} size="lg" className="w-full sm:w-auto">Calculate FIRE Number</Button>
         </CardContent>
       </Card>
 
@@ -83,22 +83,22 @@ export function FireCalculatorForm() {
               </div>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                <div className="text-center p-4 bg-background rounded-lg">
-                  <p className="text-sm text-muted-foreground">FIRE Number</p>
-                  <p className="text-xl font-bold text-primary">${formatNumber(result.fireNumber)}</p>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-6">
+                <div className="text-center p-3 sm:p-4 bg-background rounded-lg overflow-hidden">
+                  <p className="text-xs sm:text-sm text-muted-foreground">FIRE Number</p>
+                  <p className="text-base sm:text-lg md:text-xl font-bold text-primary tabular-nums truncate">${formatNumber(result.fireNumber)}</p>
                 </div>
-                <div className="text-center p-4 bg-background rounded-lg">
-                  <p className="text-sm text-muted-foreground">Years to FIRE</p>
-                  <p className="text-xl font-bold">{result.yearsToFire === -1 ? 'N/A' : result.yearsToFire}</p>
+                <div className="text-center p-3 sm:p-4 bg-background rounded-lg overflow-hidden">
+                  <p className="text-xs sm:text-sm text-muted-foreground">Years to FIRE</p>
+                  <p className="text-base sm:text-lg md:text-xl font-bold tabular-nums">{result.yearsToFire === -1 ? 'N/A' : result.yearsToFire}</p>
                 </div>
-                <div className="text-center p-4 bg-background rounded-lg">
-                  <p className="text-sm text-muted-foreground">Lean FIRE</p>
-                  <p className="text-xl font-bold">${formatNumber(result.leanFireNumber)}</p>
+                <div className="text-center p-3 sm:p-4 bg-background rounded-lg overflow-hidden">
+                  <p className="text-xs sm:text-sm text-muted-foreground">Lean FIRE</p>
+                  <p className="text-base sm:text-lg md:text-xl font-bold tabular-nums truncate">${formatNumber(result.leanFireNumber)}</p>
                 </div>
-                <div className="text-center p-4 bg-background rounded-lg">
-                  <p className="text-sm text-muted-foreground">Fat FIRE</p>
-                  <p className="text-xl font-bold">${formatNumber(result.fatFireNumber)}</p>
+                <div className="text-center p-3 sm:p-4 bg-background rounded-lg overflow-hidden">
+                  <p className="text-xs sm:text-sm text-muted-foreground">Fat FIRE</p>
+                  <p className="text-base sm:text-lg md:text-xl font-bold tabular-nums truncate">${formatNumber(result.fatFireNumber)}</p>
                 </div>
               </div>
 

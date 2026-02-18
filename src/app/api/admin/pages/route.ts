@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import { logAudit } from '@/lib/audit';
+import { requireAdmin } from '@/lib/require-admin';
 import { z } from 'zod';
 
 const schema = z.object({
@@ -15,6 +16,9 @@ const schema = z.object({
 });
 
 export async function GET() {
+  const authError = await requireAdmin({ allowEditor: true });
+  if (authError) return authError;
+
   const pages = await prisma.landingPage.findMany({
     orderBy: { slug: 'asc' },
     include: { _count: { select: { faqs: true } } },
@@ -23,6 +27,9 @@ export async function GET() {
 }
 
 export async function POST(request: NextRequest) {
+  const authError = await requireAdmin({ allowEditor: true });
+  if (authError) return authError;
+
   try {
     const body = await request.json();
     const data = schema.parse(body);

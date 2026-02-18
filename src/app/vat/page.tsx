@@ -51,6 +51,19 @@ export default async function VatPage() {
 
         <AdSlot slot="top-banner" />
 
+        {rates.length === 0 && (
+          <Card className="mb-6 border-yellow-500 bg-yellow-50 dark:bg-yellow-950/20">
+            <CardContent className="p-4">
+              <p className="text-sm font-medium text-yellow-800 dark:text-yellow-200">
+                ⚠️ VAT rates not loaded. The database may not be seeded yet.
+              </p>
+              <p className="text-xs text-yellow-700 dark:text-yellow-300 mt-1">
+                Run <code className="bg-yellow-100 dark:bg-yellow-900 px-1 rounded">npx tsx prisma/seed.ts</code> or check your DATABASE_URL environment variable.
+              </p>
+            </CardContent>
+          </Card>
+        )}
+
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2">
             <VatCalculatorForm

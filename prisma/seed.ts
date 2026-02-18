@@ -7,13 +7,13 @@ async function main() {
   console.log('🌱 Seeding database...');
 
   // ─── Admin User ─────────────────────────────────────────────────────
-  const adminEmail = process.env.ADMIN_EMAIL || 'admin@ratewise.com';
+  const adminEmail = process.env.ADMIN_EMAIL || 'admin@ratewise.es';
   const adminPassword = process.env.ADMIN_PASSWORD || 'Admin123!';
   const hash = await bcrypt.hash(adminPassword, 12);
 
   await prisma.user.upsert({
     where: { email: adminEmail },
-    update: {},
+    update: { passwordHash: hash, role: Role.ADMIN },
     create: {
       email: adminEmail,
       name: 'Admin',
@@ -21,7 +21,7 @@ async function main() {
       role: Role.ADMIN,
     },
   });
-  console.log(`✅ Admin user: ${adminEmail}`);
+  console.log(`✅ Admin user: ${adminEmail} (password updated)`);
 
   // ─── EU VAT Rates ──────────────────────────────────────────────────
   const vatRates = [
@@ -57,7 +57,14 @@ async function main() {
   for (const vat of vatRates) {
     await prisma.vatRate.upsert({
       where: { countryCode: vat.countryCode },
-      update: { standardRate: vat.standardRate, reducedRate: vat.reducedRate },
+      update: {
+        countryName: vat.countryName,
+        standardRate: vat.standardRate,
+        reducedRate: vat.reducedRate ?? null,
+        superReduced: (vat as Record<string, unknown>).superReduced as number | undefined ?? null,
+        parkingRate: (vat as Record<string, unknown>).parkingRate as number | undefined ?? null,
+        source: vat.source,
+      },
       create: vat,
     });
   }
@@ -121,7 +128,13 @@ async function main() {
   for (const tax of salesTaxRates) {
     await prisma.salesTaxRate.upsert({
       where: { stateCode: tax.stateCode },
-      update: { stateRate: tax.stateRate },
+      update: {
+        stateName: tax.stateName,
+        stateRate: tax.stateRate,
+        avgLocalRate: tax.avgLocalRate,
+        combinedRate: tax.combinedRate,
+        source: 'Tax Foundation',
+      },
       create: { ...tax, source: 'Tax Foundation' },
     });
   }
@@ -133,11 +146,27 @@ async function main() {
     { key: 'logoUrl', value: '/logo.svg' },
     { key: 'primaryColor', value: '#2563eb' },
     { key: 'footerText', value: '© 2026 RateWise. All rights reserved.' },
-    { key: 'adTopBanner', value: 'true' },
-    { key: 'adSidebar', value: 'true' },
-    { key: 'adInContent', value: 'true' },
-    { key: 'adFooter', value: 'true' },
+    { key: 'contactEmail', value: process.env.CONTACT_EMAIL || 'hello@ratewise.es' },
+    { key: 'adminDefaultEmail', value: process.env.ADMIN_EMAIL || 'admin@ratewise.es' },
     { key: 'ga4Id', value: '' },
+    // ─── Ads Configuration ────────────────────────────────────────────
+    { key: 'ads.enableTopBanner', value: 'false' },
+    { key: 'ads.enableSidebar', value: 'false' },
+    { key: 'ads.enableInContent', value: 'false' },
+    { key: 'ads.enableFooter', value: 'false' },
+    { key: 'ads.adProvider', value: 'adsense' },
+    { key: 'ads.adsenseClientId', value: '' },
+    { key: 'ads.adsenseSlotTopBanner', value: '' },
+    { key: 'ads.adsenseSlotSidebar', value: '' },
+    { key: 'ads.adsenseSlotInContent', value: '' },
+    { key: 'ads.adsenseSlotFooter', value: '' },
+    { key: 'ads.customAdHtmlTopBanner', value: '' },
+    { key: 'ads.customAdHtmlSidebar', value: '' },
+    { key: 'ads.customAdHtmlInContent', value: '' },
+    { key: 'ads.customAdHtmlFooter', value: '' },
+    { key: 'ads.globalHeadScript', value: '' },
+    { key: 'ads.globalBodyScript', value: '' },
+    { key: 'ads.nonPersonalizedAdsDefault', value: 'true' },
   ];
 
   for (const s of settings) {

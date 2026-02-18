@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next';
 import { prisma } from '@/lib/db';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://ratewise.com';
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://ratewise.es';
   const now = new Date();
 
   // Static pages

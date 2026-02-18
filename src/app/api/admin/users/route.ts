@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import { logAudit } from '@/lib/audit';
+import { requireAdmin } from '@/lib/require-admin';
 import { z } from 'zod';
 import bcrypt from 'bcryptjs';
 
@@ -12,6 +13,9 @@ const createSchema = z.object({
 });
 
 export async function GET() {
+  const authError = await requireAdmin();
+  if (authError) return authError;
+
   const users = await prisma.user.findMany({
     orderBy: { createdAt: 'desc' },
     select: { id: true, email: true, name: true, role: true, createdAt: true },
@@ -20,6 +24,9 @@ export async function GET() {
 }
 
 export async function POST(request: NextRequest) {
+  const authError = await requireAdmin();
+  if (authError) return authError;
+
   try {
     const body = await request.json();
     const data = createSchema.parse(body);

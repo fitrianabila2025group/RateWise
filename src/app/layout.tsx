@@ -10,7 +10,7 @@ import { TooltipProvider } from '@/components/ui/tooltip';
 const inter = Inter({ subsets: ['latin'], display: 'swap' });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://ratewise.com'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://ratewise.es'),
   title: {
     default: 'RateWise – Free VAT, Sales Tax, Salary & Finance Calculators',
     template: '%s | RateWise',

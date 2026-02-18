@@ -123,18 +123,18 @@ export function VatCalculatorForm({ rates, defaultCountry }: VatCalculatorFormPr
             </div>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="text-center p-4 bg-background rounded-lg">
-                <p className="text-sm text-muted-foreground">Net Amount</p>
-                <p className="text-2xl font-bold">{formatNumber(result.netAmount)}</p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div className="text-center p-3 sm:p-4 bg-background rounded-lg overflow-hidden">
+                <p className="text-xs sm:text-sm text-muted-foreground">Net Amount</p>
+                <p className="text-lg sm:text-xl md:text-2xl font-bold tabular-nums truncate">{formatNumber(result.netAmount)}</p>
               </div>
-              <div className="text-center p-4 bg-background rounded-lg">
-                <p className="text-sm text-muted-foreground">VAT ({result.rate}%)</p>
-                <p className="text-2xl font-bold text-primary">{formatNumber(result.vatAmount)}</p>
+              <div className="text-center p-3 sm:p-4 bg-background rounded-lg overflow-hidden">
+                <p className="text-xs sm:text-sm text-muted-foreground">VAT ({result.rate}%)</p>
+                <p className="text-lg sm:text-xl md:text-2xl font-bold text-primary tabular-nums truncate">{formatNumber(result.vatAmount)}</p>
               </div>
-              <div className="text-center p-4 bg-background rounded-lg">
-                <p className="text-sm text-muted-foreground">Gross Amount</p>
-                <p className="text-2xl font-bold">{formatNumber(result.grossAmount)}</p>
+              <div className="text-center p-3 sm:p-4 bg-background rounded-lg overflow-hidden">
+                <p className="text-xs sm:text-sm text-muted-foreground">Gross Amount</p>
+                <p className="text-lg sm:text-xl md:text-2xl font-bold tabular-nums truncate">{formatNumber(result.grossAmount)}</p>
               </div>
             </div>
 

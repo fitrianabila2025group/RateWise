@@ -24,7 +24,7 @@ export default function ContactPage() {
           </p>
           <h2>Email</h2>
           <p>
-            You can reach us at <a href="mailto:hello@ratewise.com">hello@ratewise.com</a>.
+            You can reach us at <a href="mailto:hello@ratewise.es">hello@ratewise.es</a>.
           </p>
           <h2>GitHub</h2>
           <p>

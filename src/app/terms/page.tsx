@@ -76,7 +76,7 @@ export default function TermsPage() {
 
           <h2>9. Contact</h2>
           <p>
-            Questions about these Terms? Contact us at <a href="mailto:hello@ratewise.com">hello@ratewise.com</a>.
+            Questions about these Terms? Contact us at <a href="mailto:hello@ratewise.es">hello@ratewise.es</a>.
           </p>
         </div>
       </div>

@@ -68,7 +68,7 @@ export function LoanCalculatorForm() {
               <Input id="extra" type="number" value={extra} onChange={(e) => setExtra(e.target.value)} min="0" step="100" />
             </div>
           </div>
-          <Button onClick={calculate} size="lg">Calculate</Button>
+          <Button onClick={calculate} size="lg" className="w-full sm:w-auto">Calculate</Button>
         </CardContent>
       </Card>
 
@@ -82,22 +82,22 @@ export function LoanCalculatorForm() {
               </div>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div className="text-center p-4 bg-background rounded-lg">
-                  <p className="text-sm text-muted-foreground">Monthly Payment</p>
-                  <p className="text-xl font-bold text-primary">${formatNumber(result.monthlyPayment)}</p>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+                <div className="text-center p-3 sm:p-4 bg-background rounded-lg overflow-hidden">
+                  <p className="text-xs sm:text-sm text-muted-foreground">Monthly Payment</p>
+                  <p className="text-base sm:text-lg md:text-xl font-bold text-primary tabular-nums truncate">${formatNumber(result.monthlyPayment)}</p>
                 </div>
-                <div className="text-center p-4 bg-background rounded-lg">
-                  <p className="text-sm text-muted-foreground">Total Interest</p>
-                  <p className="text-xl font-bold text-red-600">${formatNumber(result.totalInterest)}</p>
+                <div className="text-center p-3 sm:p-4 bg-background rounded-lg overflow-hidden">
+                  <p className="text-xs sm:text-sm text-muted-foreground">Total Interest</p>
+                  <p className="text-base sm:text-lg md:text-xl font-bold text-red-600 tabular-nums truncate">${formatNumber(result.totalInterest)}</p>
                 </div>
-                <div className="text-center p-4 bg-background rounded-lg">
-                  <p className="text-sm text-muted-foreground">Total Paid</p>
-                  <p className="text-xl font-bold">${formatNumber(result.totalPayment)}</p>
+                <div className="text-center p-3 sm:p-4 bg-background rounded-lg overflow-hidden">
+                  <p className="text-xs sm:text-sm text-muted-foreground">Total Paid</p>
+                  <p className="text-base sm:text-lg md:text-xl font-bold tabular-nums truncate">${formatNumber(result.totalPayment)}</p>
                 </div>
-                <div className="text-center p-4 bg-background rounded-lg">
-                  <p className="text-sm text-muted-foreground">Payoff</p>
-                  <p className="text-xl font-bold">{Math.floor(result.payoffMonths / 12)}y {result.payoffMonths % 12}m</p>
+                <div className="text-center p-3 sm:p-4 bg-background rounded-lg overflow-hidden">
+                  <p className="text-xs sm:text-sm text-muted-foreground">Payoff</p>
+                  <p className="text-base sm:text-lg md:text-xl font-bold tabular-nums">{Math.floor(result.payoffMonths / 12)}y {result.payoffMonths % 12}m</p>
                 </div>
               </div>
             </CardContent>

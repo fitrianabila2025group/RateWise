@@ -59,7 +59,12 @@ export default function AdminLoginPage() {
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
             {error && (
-              <div className="bg-destructive/10 text-destructive text-sm p-3 rounded-md">{error}</div>
+              <div className="bg-destructive/10 text-destructive text-sm p-3 rounded-md">
+                <p className="font-medium">{error}</p>
+                <p className="mt-1 text-xs opacity-80">
+                  Ensure the database has been seeded. Check ADMIN_EMAIL and ADMIN_PASSWORD env vars, then run: <code className="bg-destructive/10 px-1 rounded">npx tsx prisma/seed.ts</code>
+                </p>
+              </div>
             )}
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
@@ -68,7 +73,7 @@ export default function AdminLoginPage() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="admin@ratewise.com"
+                placeholder="admin@ratewise.es"
                 required
                 autoComplete="email"
               />
@@ -89,6 +94,10 @@ export default function AdminLoginPage() {
               {loading ? 'Signing in...' : 'Sign In'}
             </Button>
           </form>
+          <div className="mt-4 rounded-md bg-muted p-3 text-xs text-muted-foreground">
+            <p className="font-medium mb-1">First time?</p>
+            <p>Default credentials are set via <code className="bg-background px-1 rounded">ADMIN_EMAIL</code> and <code className="bg-background px-1 rounded">ADMIN_PASSWORD</code> environment variables. The database must be seeded for login to work.</p>
+          </div>
         </CardContent>
       </Card>
     </div>

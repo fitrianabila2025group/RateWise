@@ -93,22 +93,22 @@ export function HourlySalaryForm() {
               </div>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div className="text-center p-4 bg-background rounded-lg">
-                  <p className="text-sm text-muted-foreground">Annual</p>
-                  <p className="text-xl font-bold">${formatNumber(result.annualPay)}</p>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+                <div className="text-center p-3 sm:p-4 bg-background rounded-lg overflow-hidden">
+                  <p className="text-xs sm:text-sm text-muted-foreground">Annual</p>
+                  <p className="text-base sm:text-lg md:text-xl font-bold tabular-nums truncate">${formatNumber(result.annualPay)}</p>
                 </div>
-                <div className="text-center p-4 bg-background rounded-lg">
-                  <p className="text-sm text-muted-foreground">Monthly</p>
-                  <p className="text-xl font-bold">${formatNumber(result.monthlyPay)}</p>
+                <div className="text-center p-3 sm:p-4 bg-background rounded-lg overflow-hidden">
+                  <p className="text-xs sm:text-sm text-muted-foreground">Monthly</p>
+                  <p className="text-base sm:text-lg md:text-xl font-bold tabular-nums truncate">${formatNumber(result.monthlyPay)}</p>
                 </div>
-                <div className="text-center p-4 bg-background rounded-lg">
-                  <p className="text-sm text-muted-foreground">Bi-weekly</p>
-                  <p className="text-xl font-bold">${formatNumber(result.biweeklyPay)}</p>
+                <div className="text-center p-3 sm:p-4 bg-background rounded-lg overflow-hidden">
+                  <p className="text-xs sm:text-sm text-muted-foreground">Bi-weekly</p>
+                  <p className="text-base sm:text-lg md:text-xl font-bold tabular-nums truncate">${formatNumber(result.biweeklyPay)}</p>
                 </div>
-                <div className="text-center p-4 bg-background rounded-lg">
-                  <p className="text-sm text-muted-foreground">Weekly</p>
-                  <p className="text-xl font-bold">${formatNumber(result.weeklyPay)}</p>
+                <div className="text-center p-3 sm:p-4 bg-background rounded-lg overflow-hidden">
+                  <p className="text-xs sm:text-sm text-muted-foreground">Weekly</p>
+                  <p className="text-base sm:text-lg md:text-xl font-bold tabular-nums truncate">${formatNumber(result.weeklyPay)}</p>
                 </div>
               </div>
               {result.overtimePay > 0 && (
@@ -150,7 +150,7 @@ export function HourlySalaryForm() {
             <CardContent className="pt-6">
               <div className="text-center">
                 <p className="text-sm text-muted-foreground">Equivalent Hourly Rate</p>
-                <p className="text-4xl font-bold text-primary">${formatNumber(hourlyResult)}/hr</p>
+                <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary tabular-nums truncate">${formatNumber(hourlyResult)}/hr</p>
               </div>
             </CardContent>
           </Card>
