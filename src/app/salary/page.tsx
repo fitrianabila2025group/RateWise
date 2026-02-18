@@ -11,6 +11,8 @@ import { getSiteUrl } from '@/lib/utils';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'Salary Calculators – Net Pay, Tax & Hourly↔Salary | RateWise',
   description:

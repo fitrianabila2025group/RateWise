@@ -13,6 +13,8 @@ import { JsonLd, webPageJsonLd, softwareApplicationJsonLd } from '@/components/s
 import { getSiteUrl } from '@/lib/utils';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
+export const dynamic = 'force-dynamic';
+
 interface PageProps {
   params: Promise<{ country: string }>;
 }

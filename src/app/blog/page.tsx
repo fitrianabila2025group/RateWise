@@ -8,6 +8,8 @@ import { getSiteUrl } from '@/lib/utils';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'Blog – Financial Tips, Tax Guides & Calculator Tutorials | RateWise',
   description:

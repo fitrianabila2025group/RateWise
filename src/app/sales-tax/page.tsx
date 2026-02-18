@@ -10,6 +10,8 @@ import { Disclaimer } from '@/components/shared/disclaimer';
 import { JsonLd, webPageJsonLd, softwareApplicationJsonLd } from '@/components/seo/json-ld';
 import { getSiteUrl } from '@/lib/utils';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'US Sales Tax Calculator – All 50 States',
   description:

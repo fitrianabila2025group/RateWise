@@ -10,6 +10,9 @@ import { Disclaimer } from '@/components/shared/disclaimer';
 import { JsonLd, webPageJsonLd, softwareApplicationJsonLd } from '@/components/seo/json-ld';
 import { getSiteUrl } from '@/lib/utils';
 
+// Force dynamic rendering so rates are always fetched from the DB
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'EU VAT Calculator – Calculate VAT for All EU Countries',
   description:

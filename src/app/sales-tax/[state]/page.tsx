@@ -13,6 +13,8 @@ import { getSiteUrl } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
+export const dynamic = 'force-dynamic';
+
 interface PageProps {
   params: Promise<{ state: string }>;
 }

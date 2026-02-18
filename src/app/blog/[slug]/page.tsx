@@ -7,6 +7,8 @@ import { SharePageButton } from '@/components/shared/action-buttons';
 import { JsonLd } from '@/components/seo/json-ld';
 import { getSiteUrl } from '@/lib/utils';
 
+export const dynamic = 'force-dynamic';
+
 interface PageProps {
   params: Promise<{ slug: string }>;
 }

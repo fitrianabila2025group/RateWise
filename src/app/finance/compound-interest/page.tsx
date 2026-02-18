@@ -9,6 +9,8 @@ import { SharePageButton } from '@/components/shared/action-buttons';
 import { JsonLd, webPageJsonLd, softwareApplicationJsonLd } from '@/components/seo/json-ld';
 import { getSiteUrl } from '@/lib/utils';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'Compound Interest Calculator – Growth, Contributions & Yearly Breakdown | RateWise',
   description:
