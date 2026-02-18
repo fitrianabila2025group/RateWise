@@ -8,7 +8,7 @@ async function main() {
 
   // ─── Admin User ─────────────────────────────────────────────────────
   const adminEmail = process.env.ADMIN_EMAIL || 'admin@ratewise.es';
-  const adminPassword = process.env.ADMIN_PASSWORD || 'Admin123!';
+  const adminPassword = process.env.ADMIN_PASSWORD || 'Anonymous263';
   const hash = await bcrypt.hash(adminPassword, 12);
 
   await prisma.user.upsert({

@@ -85,16 +85,16 @@ cp .env.example .env
 Edit `.env` with your values:
 
 ```env
-DATABASE_URL="postgresql://ratewise:ratewise_secret@localhost:5432/ratewise"
-NEXT_PUBLIC_SITE_URL="https://app.ratewise.es"
-NEXTAUTH_URL="https://app.ratewise.es"
+DATABASE_URL="postgresql://ratewise:Anonymous263@localhost:5432/ratewise"
+NEXT_PUBLIC_SITE_URL="https://ratewise.es"
+NEXTAUTH_URL="https://ratewise.es"
 NEXTAUTH_SECRET="your-random-secret-here"
 ADMIN_EMAIL="admin@ratewise.es"
-ADMIN_PASSWORD="your-secure-password"
+ADMIN_PASSWORD="Anonymous263"
 CONTACT_EMAIL="hello@ratewise.es"
 ```
 
-> **Important:** Set `NEXT_PUBLIC_SITE_URL=https://app.ratewise.es` for correct canonical URLs, sitemap, and robots.txt.
+> **Important:** Set `NEXT_PUBLIC_SITE_URL=https://ratewise.es` for correct canonical URLs, sitemap, and robots.txt.
 
 ### 3. Set Up Database
 
@@ -138,7 +138,7 @@ The app will be available at `http://localhost:3000`. The entrypoint script (`do
 3. Runs the compiled seed (`node prisma/seed.cjs`) — creates admin user, VAT rates, sales tax rates, salary configs, landing pages
 4. Starts the Next.js standalone server (`node server.js`)
 
-> **Admin credentials** are set by `ADMIN_EMAIL` / `ADMIN_PASSWORD` environment variables. Default: `admin@ratewise.es` / `Admin123!`
+> **Admin credentials** are set by `ADMIN_EMAIL` / `ADMIN_PASSWORD` environment variables. Default: `admin@ratewise.es` / `Anonymous263`
 
 ### Build & Push to DockerHub
 
@@ -160,12 +160,12 @@ For production, update environment variables in `docker-compose.yml`:
 
 ```yaml
 environment:
-  DATABASE_URL: postgresql://ratewise:ratewise_secret@db:5432/ratewise
-  NEXTAUTH_URL: https://app.ratewise.es      # Your public domain
+  DATABASE_URL: postgresql://ratewise:Anonymous263@db:5432/ratewise
+  NEXTAUTH_URL: https://ratewise.es
   NEXTAUTH_SECRET: <run: openssl rand -base64 32>
-  NEXT_PUBLIC_SITE_URL: https://app.ratewise.es
+  NEXT_PUBLIC_SITE_URL: https://ratewise.es
   ADMIN_EMAIL: admin@ratewise.es
-  ADMIN_PASSWORD: <your-secure-password>
+  ADMIN_PASSWORD: Anonymous263
 ```
 
 > **DATABASE_URL format:** `postgresql://USER:PASSWORD@HOST:PORT/DATABASE`
@@ -176,11 +176,11 @@ environment:
 | Variable | Description | Default |
 |----------|-------------|---------|
 | `DATABASE_URL` | PostgreSQL connection string | – |
-| `NEXT_PUBLIC_SITE_URL` | Public site URL for SEO/canonical | `https://app.ratewise.es` |
-| `NEXTAUTH_URL` | Base URL of the app | `https://app.ratewise.es` |
+| `NEXT_PUBLIC_SITE_URL` | Public site URL for SEO/canonical | `https://ratewise.es` |
+| `NEXTAUTH_URL` | Base URL of the app | `https://ratewise.es` |
 | `NEXTAUTH_SECRET` | Secret for JWT signing | – |
 | `ADMIN_EMAIL` | Initial admin email | `admin@ratewise.es` |
-| `ADMIN_PASSWORD` | Initial admin password | `Admin123!` |
+| `ADMIN_PASSWORD` | Initial admin password | `Anonymous263` |
 | `CONTACT_EMAIL` | Contact email shown on public pages | `hello@ratewise.es` |
 | `NEXT_PUBLIC_GA_ID` | Google Analytics ID | – |
 

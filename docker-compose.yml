@@ -4,7 +4,7 @@ services:
     restart: unless-stopped
     environment:
       POSTGRES_USER: ratewise
-      POSTGRES_PASSWORD: ratewise_secret
+      POSTGRES_PASSWORD: Anonymous263
       POSTGRES_DB: ratewise
     ports:
       - "5432:5432"
@@ -22,12 +22,13 @@ services:
     ports:
       - "3000:3000"
     environment:
-      DATABASE_URL: postgresql://ratewise:ratewise_secret@db:5432/ratewise
-      NEXTAUTH_URL: http://localhost:3000
+      # NOTE: password here MUST match POSTGRES_PASSWORD above
+      DATABASE_URL: postgresql://ratewise:Anonymous263@db:5432/ratewise
+      NEXTAUTH_URL: https://ratewise.es
       NEXTAUTH_SECRET: change-me-in-production-to-a-random-string
-      NEXT_PUBLIC_SITE_URL: https://app.ratewise.es
+      NEXT_PUBLIC_SITE_URL: https://ratewise.es
       ADMIN_EMAIL: admin@ratewise.es
-      ADMIN_PASSWORD: Admin123!
+      ADMIN_PASSWORD: Anonymous263
       CONTACT_EMAIL: hello@ratewise.es
     depends_on:
       db:
