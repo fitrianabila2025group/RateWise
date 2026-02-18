@@ -25,7 +25,7 @@ services:
       DATABASE_URL: postgresql://ratewise:ratewise_secret@db:5432/ratewise
       NEXTAUTH_URL: http://localhost:3000
       NEXTAUTH_SECRET: change-me-in-production-to-a-random-string
-      NEXT_PUBLIC_SITE_URL: https://ratewise.es
+      NEXT_PUBLIC_SITE_URL: https://app.ratewise.es
       ADMIN_EMAIL: admin@ratewise.es
       ADMIN_PASSWORD: Admin123!
       CONTACT_EMAIL: hello@ratewise.es

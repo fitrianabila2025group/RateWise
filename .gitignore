@@ -8,3 +8,4 @@ dist
 coverage
 .vercel
 prisma/seed.js
+prisma/seed.cjs

@@ -21,8 +21,8 @@ ENV NEXT_TELEMETRY_DISABLED=1
 
 RUN npm run build
 
-# Compile seed.ts to seed.js for production runtime (no tsx needed)
-RUN npx esbuild prisma/seed.ts --bundle --platform=node --outfile=prisma/seed.js --external:@prisma/client --external:bcryptjs
+# Compile seed.ts to seed.cjs for production runtime (no tsx needed)
+RUN npx esbuild prisma/seed.ts --bundle --platform=node --format=cjs --outfile=prisma/seed.cjs --external:@prisma/client --external:bcryptjs
 
 # Production image, copy all the files and run next
 FROM base AS runner
@@ -39,6 +39,8 @@ RUN adduser --system --uid 1001 nextjs
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/prisma ./prisma
 COPY --from=builder /app/docker-entrypoint.sh ./docker-entrypoint.sh
+# Ensure LF line endings (in case of Windows checkout)
+RUN sed -i 's/\r$//' ./docker-entrypoint.sh
 
 # Set the correct permission for prerender cache
 RUN mkdir .next
@@ -55,7 +57,7 @@ COPY --from=deps /app/node_modules/prisma ./node_modules/prisma
 COPY --from=deps /app/node_modules/bcryptjs ./node_modules/bcryptjs
 
 # Copy compiled seed script
-COPY --from=builder /app/prisma/seed.js ./prisma/seed.js
+COPY --from=builder /app/prisma/seed.cjs ./prisma/seed.cjs
 COPY --from=builder /app/package.json ./package.json
 
 RUN chmod +x ./docker-entrypoint.sh
